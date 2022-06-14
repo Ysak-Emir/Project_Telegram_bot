@@ -32,7 +32,7 @@ async def quiz_3(call: types.CallbackQuery):
         'Ло',
         'Мугивара Луффи'
     ]
-    photo = open('media/Луффи.jpg', 'rb')
+    photo = open('media/1.jpg', 'rb')
     await bot.send_photo(call.message.chat.id,photo=photo)
     await bot.send_poll(
         chat_id=call.message.chat.id,
