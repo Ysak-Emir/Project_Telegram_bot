@@ -3,6 +3,7 @@ from aiogram import types, Dispatcher
 from config import bot, dp, ADMIN
 
 
+# noinspection PyPackageRequirements
 async def echo(message: types.Message):
     if message.from_user.id == ADMIN:
         games = ['🎲', '🏏', '⚽']

@@ -2,7 +2,7 @@ import random
 from aiogram import types, Dispatcher
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, ParseMode
 from config import bot, dp, ADMIN
-
+from prosto_parser import serials, multiki, anime
 
 async def start_comand(message: types.Message):
     await message.reply(f'Hello {message.from_user.full_name} 😂')
@@ -63,7 +63,23 @@ async def echo(message: types.Message):
     else:
         await bot.send_message(message.chat.id, "Вы не Админ!")
 
+async def parser_serials(message: types.Message):
+    data = serials.parser()
+    for i in data:
+        await bot.send_message(message.from_user.id,
+                               f"{i['title']}\n\n{i['link']}")
 
+async def parser_multiki(message: types.Message):
+    data = multiki.parser()
+    for i in data:
+        await bot.send_message(message.from_user.id,
+                               f"{i['title']}\n\n{i['link']}")
+
+async def parser_anime(message: types.Message):
+    data = anime.parser()
+    for i in data:
+        await bot.send_message(message.from_user.id,
+                               f"{i['title']}\n\n{i['link']}")
 
 
 def register_handlers_client(dp: Dispatcher):
@@ -71,3 +87,9 @@ def register_handlers_client(dp: Dispatcher):
     dp.register_message_handler(mem_comand, commands=['mem']),
     dp.register_message_handler(quiz_1, commands=['quiz']),
     dp.register_message_handler(question, commands=['Qu']),
+    dp.register_message_handler(parser_serials, commands=['serials'])
+    dp.register_message_handler(parser_multiki, commands=['multiki'])
+    dp.register_message_handler(parser_anime, commands=['anime'])
+
+
+

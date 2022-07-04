@@ -6,3 +6,5 @@ __pycache__/
 *.py[cod]
 *.so
 mediagit add .
+bot.sqlite3
+test.py

@@ -3,7 +3,7 @@ from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import Text
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-
+from database import bot_db
 
 from config import bot, ADMIN
 
@@ -22,8 +22,7 @@ async def fsm_start(message: types.Message):
             f"Здравствуйте {message.from_user.full_name}, отправьте фото блюдо",
         )
     else:
-        await message.reply("Ты не админ и еще пиши в личку придурок!")
-
+        await message.reply("Ты не админ и еще пиши в личку!")
 
 async def load_photo(message: types.Message, state: FSMContext ):
     async with state.proxy() as data:
@@ -55,7 +54,7 @@ async def load_price(message: types.Message, state: FSMContext):
                              caption=f"Блюдо: {data['name']}\n"
                                      f"Описание: {data['description']}\n"
                                      f"Цена: {data['price']}\n")
-
+        await bot_db.sql_command_insert(state)
         await state.finish()
 
     except:
