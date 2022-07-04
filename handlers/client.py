@@ -3,10 +3,20 @@ from aiogram import types, Dispatcher
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, ParseMode
 from config import bot, dp, ADMIN
 from prosto_parser import serials, multiki, anime
+from database import psql_db
 
 async def start_comand(message: types.Message):
-    await message.reply(f'Hello {message.from_user.full_name} 😂')
 
+    user_id = message.from_user.id
+    username = f"@{message.from_user.username}"
+    fullname = message.from_user.full_name
+
+    psql_db.cursor.execute(
+        "INSERT INTO users (id. username, fullname) VALUES (%s, %s, %s)",
+    )
+    psql_db.db.commit()
+
+    await message.reply(f'Hello {message.from_user.full_name} 😂')
 
 async def mem_comand(message: types.Message):
     photo = open('media/mem.jpg', 'rb')
